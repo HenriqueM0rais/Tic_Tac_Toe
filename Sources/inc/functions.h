@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+/*************DEFINES*************/
+#define SIZE 3;
+
 /************VARIABLES************/
 char grid[3][3];
 char play;
 int row, col;
+int matrixSize;
+
 /************FUNCTIONS************/
 extern void init(void);
 extern bool isAvailable(int row, int col, char grid[3][3]);

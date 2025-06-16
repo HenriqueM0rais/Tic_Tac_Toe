@@ -4,7 +4,7 @@
 #include "functions.h"
 
 /*******************************************************************
-void isAvailable(void)
+void init(void)
 
 Inputs: 
 
@@ -19,9 +19,10 @@ void init()
 {
     row = 0;
     col = 0;
-    for (int i = 0; i < 3; i++)
+    matrixSize = SIZE;
+    for (int i = 0; i < matrixSize; i++)
     {
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < matrixSize; j++)
         {
             strcpy(&grid[i][j], " ");   
         } 
@@ -91,10 +92,10 @@ bool didWin(int row, int col, char grid[3][3])
     /*Checks each row*/
     counter = 0;
     
-    for(int i=1; i<row; i++)
+    for(int i=1; i<matrixSize; i++)
     {
         aux = grid[i][0];
-        for(int j=0; j<col; j++)
+        for(int j=0; j<matrixSize; j++)
         {
             if (strcmp(&aux, &grid[i][j]))
             {
@@ -111,10 +112,10 @@ bool didWin(int row, int col, char grid[3][3])
     /*Checks each column*/
     counter = 0;
     
-    for(int i=1; i<col; i++)
+    for(int i=1; i<matrixSize; i++)
     {
         aux = grid[0][i];
-        for(int j=0; j<row; j++)
+        for(int j=0; j<matrixSize; j++)
         {
             if (strcmp(&aux, &grid[i][j]))
             {
@@ -130,7 +131,7 @@ bool didWin(int row, int col, char grid[3][3])
 
     /*Checks Top-left to Bottom-right*/
     counter = 0;
-    for (int i=0; i<2; i++)
+    for (int i=0; i<(matrixSize-1); i++)
     {
         aux = grid[i][i];
         if (strcmp(&aux, &grid[i+1][i+1]))
@@ -145,7 +146,7 @@ bool didWin(int row, int col, char grid[3][3])
 
     /*Checks Bottom--left to Top-right*/
     counter = 0;
-    for (int i=2; i>0; i--)
+    for (int i=(matrixSize-1); i>0; i--)
     {
         aux = grid[i][i];
         if (strcmp(&aux, &grid[i-1][i-1]))
@@ -178,7 +179,23 @@ This function prints the playing field
 
 void printMatrix(int row, int col, char grid[3][3])
 {
-    
+    for (int c=0;c<matrixSize;c++)
+    {
+        for (int d=0;d<matrixSize;d++)
+        {
+            printf("%c",grid[c][d]);
+            if (d<(matrixSize-1))
+            {
+                printf("|");
+            }
+        }
+        printf("\n");
+        if (c<(matrixSize-1))
+        {
+            printf("- - - \n"); 
+        }
+    }
+    return;
 }
 
 /*******************************************************************
