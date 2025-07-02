@@ -20,11 +20,14 @@ void init()
     row = 0;
     col = 0;
     matrixSize = SIZE;
+    player[0] = ' ';
+    player[1] = ' ';
+
     for (int i = 0; i < matrixSize; i++)
     {
         for (int j = 0; j < matrixSize; j++)
         {
-            strcpy(&grid[i][j], " ");   
+            grid[i][j] = ' ';  
         } 
     }
 
@@ -52,7 +55,7 @@ bool isAvailable(int row, int col, char grid[3][3])
 {
     if (row >= 0 && row < 3 && col >= 0 && col < 3)
     {
-        if (strcmp(&grid[row][col], " "))
+        if (grid[row][col]==' ')
         {
             return true;
         }
@@ -92,41 +95,47 @@ bool didWin(int row, int col, char grid[3][3])
     /*Checks each row*/
     counter = 0;
     
-    for(int i=1; i<matrixSize; i++)
+    for(int i=0; i<matrixSize; i++)
     {
         aux = grid[i][0];
-        for(int j=0; j<matrixSize; j++)
-        {
-            if (strcmp(&aux, &grid[i][j]))
+        for(int j=1; j<matrixSize; j++)
+        {   
+            if (strcmp(&aux, &grid[i][j]) && (grid[i][j] == 'X' || grid[i][j] == 'O'))
             {
                 counter++;
             }
         }
-        if (counter == 3)
+        if (counter == 2)
         {
             return true;
         }
-        counter = 0;
+        else
+        {
+            counter = 0;
+        }    
     }
 
     /*Checks each column*/
     counter = 0;
     
-    for(int i=1; i<matrixSize; i++)
+    for(int i=0; i<matrixSize; i++)
     {
         aux = grid[0][i];
-        for(int j=0; j<matrixSize; j++)
+        for(int j=1; j<matrixSize; j++)
         {
-            if (strcmp(&aux, &grid[i][j]))
+            if (strcmp(&aux, &grid[j][i]) && (grid[j][i] == 'X' || grid[j][i] == 'O'))
             {
                 counter++;
             }
         }
-        if (counter == 3)
+        if (counter == 2)
         {
             return true;
         }
-        counter = 0;
+        else
+        {
+            counter = 0;
+        }   
     }
 
     /*Checks Top-left to Bottom-right*/
@@ -134,7 +143,7 @@ bool didWin(int row, int col, char grid[3][3])
     for (int i=0; i<(matrixSize-1); i++)
     {
         aux = grid[i][i];
-        if (strcmp(&aux, &grid[i+1][i+1]))
+        if (strcmp(&aux, &grid[i+1][i+1]) && (grid[i+1][i+1] == 'X' || grid[i+1][i+1] == 'O'))
         {
             counter++;
         } 
@@ -149,7 +158,7 @@ bool didWin(int row, int col, char grid[3][3])
     for (int i=(matrixSize-1); i>0; i--)
     {
         aux = grid[i][i];
-        if (strcmp(&aux, &grid[i-1][i-1]))
+        if (strcmp(&aux, &grid[i-1][i-1]) && (grid[i-1][i-1] == 'X' || grid[i-1][i-1] == 'O'))
         {
             counter++;
         } 
@@ -228,4 +237,52 @@ bool fillMatrix(int row, int col, char grid[3][3], char play)
     {
         return false;
     }
+}
+
+bool readSymbol(char *player)
+{
+    printf("Please choose which symbol you want (X or O):");
+    scanf("%c", &player[0]);
+
+    if(player[0] == 'X' || player[0] == 'x')
+    {
+        player[0] = 'X';
+        player[1] = 'O';
+        return true;
+    }
+    else if(player[0] == 'O' || player[0] == 'o')
+    {
+        player[0] = 'O';
+        player[1] = 'X';
+        return true;
+    }
+    else
+    {
+        printf("The symbol you chose is not available.\n");
+        readSymbol(player);
+    }
+    return false;  
+}
+
+bool readCoordinates(int *row, int *col)
+{
+    printf("Please choose where you want to play (x,y):");
+    scanf("%d%*[,]%d", row, col);
+    if (*row <= 0 || *row >3)
+    {
+        printf ("The row you chose is out of bounds.\n");
+        readCoordinates(row, col);
+    }
+    else if (*col <= 0 || *col >3)
+    {
+        printf ("The column you chose is out of bounds.\n");
+        readCoordinates(row, col);
+    }
+    else
+    {
+        *row -=1;
+        *col -=1;
+        return true;
+    }
+    return false;
 }
