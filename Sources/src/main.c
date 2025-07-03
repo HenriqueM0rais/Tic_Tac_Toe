@@ -14,14 +14,14 @@ int main()
     readSymbol(player);
     readCoordinates(&row, &col);
     play++;
-    fillMatrix(row,col,grid,player,play);
+    fillMatrix(row,col,grid,player);
     printMatrix(row, col, grid);
-
+    
     while(!didWin(row, col, grid))
     {
         readCoordinates(&row, &col);
         play++;
-        fillMatrix(row,col,grid,player,play);
+        fillMatrix(row,col,grid,player);
         printMatrix(row, col, grid);
     }
 }
