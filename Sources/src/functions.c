@@ -172,7 +172,6 @@ bool didWin(int row, int col, char grid[3][3])
 
     /*Checks for tie*/
     counter = 0;
-    int cycles = 0;
     for (int i = 0; i < matrixSize; i++)
     {
         for (int j = 0; j < matrixSize; j++)
@@ -181,10 +180,7 @@ bool didWin(int row, int col, char grid[3][3])
             {
                 counter++;
             }
-            cycles++;
         }
-        printf("Counter: %d\n", counter);
-        printf("Cycles: %d\n", cycles);
         if (counter == 9)
         {
             printf("It's a tie!\n");
@@ -249,7 +245,7 @@ This function places the player's icon on the desired coordinates
 if they are available
 *******************************************************************/
 
-bool fillMatrix(int row, int col, char grid[3][3], char* player, int play)
+bool fillMatrix(int row, int col, char grid[3][3], char* player)
 {
     if(play%2!=0)
     {
@@ -263,6 +259,7 @@ bool fillMatrix(int row, int col, char grid[3][3], char* player, int play)
             play--;
             return false;
         }
+        
     }
     else if(play%2==0)
     {
@@ -276,6 +273,7 @@ bool fillMatrix(int row, int col, char grid[3][3], char* player, int play)
             play--;
             return false;
         }
+        
     }
     return false;
 }
