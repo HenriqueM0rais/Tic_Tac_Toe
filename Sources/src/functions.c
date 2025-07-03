@@ -19,6 +19,7 @@ void init()
 {
     row = 0;
     col = 0;
+    play = 0;
     matrixSize = SIZE;
     player[0] = ' ';
     player[1] = ' ';
@@ -169,6 +170,27 @@ bool didWin(int row, int col, char grid[3][3])
         return true;
     }
 
+    /*Checks for tie*/
+    counter = 0;
+    int cycles = 0;
+    for (int i = 0; i < matrixSize; i++)
+    {
+        for (int j = 0; j < matrixSize; j++)
+        {
+            if(grid[i][j] == 'X' || grid[i][j] == 'O')
+            {
+                counter++;
+            }
+            cycles++;
+        }
+        printf("Counter: %d\n", counter);
+        printf("Cycles: %d\n", cycles);
+        if (counter == 9)
+        {
+            printf("It's a tie!\n");
+            return true;
+        }
+    }
     return false;
 }
 
@@ -227,17 +249,35 @@ This function places the player's icon on the desired coordinates
 if they are available
 *******************************************************************/
 
-bool fillMatrix(int row, int col, char grid[3][3], char play)
+bool fillMatrix(int row, int col, char grid[3][3], char* player, int play)
 {
-    if (isAvailable(row, col, grid))
+    if(play%2!=0)
     {
-        grid[row][col] = play;
-        return true;
+        if (isAvailable(row, col, grid))
+        {
+            grid[row][col] = player[0];
+            return true;
+        }
+        else
+        {
+            play--;
+            return false;
+        }
     }
-    else
+    else if(play%2==0)
     {
-        return false;
+        if (isAvailable(row, col, grid))
+        {
+            grid[row][col] = player[1];
+            return true;
+        }
+        else
+        {
+            play--;
+            return false;
+        }
     }
+    return false;
 }
 
 bool readSymbol(char *player)
