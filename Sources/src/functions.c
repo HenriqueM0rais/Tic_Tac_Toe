@@ -6,7 +6,7 @@
 /*******************************************************************
 void init(void)
 
-Inputs: 
+Inputs:
 
 
 Output:
@@ -27,8 +27,8 @@ void init()
     {
         for (int j = 0; j < matrixSize; j++)
         {
-            grid[i][j] = ' ';  
-        } 
+            grid[i][j] = ' ';
+        }
     }
 
     return;
@@ -36,35 +36,35 @@ void init()
 /*******************************************************************
 bool isAvailable(int row, int col, char grid[3][3])
 
-Inputs: 
+Inputs:
 
-row - Coordinate for the row where the player wants to play 
-col - Coordinate for the column where the player wants to play 
-grid - Matrix that represents the playing field 
+row - Coordinate for the row where the player wants to play
+col - Coordinate for the column where the player wants to play
+grid - Matrix that represents the playing field
 
 Output:
 TRUE if coordinates are available
 FALSE if coordinates aren't available
 
 Description:
-This function checks if the coordinates chosen by the player are 
-available to place the player's icon or not 
+This function checks if the coordinates chosen by the player are
+available to place the player's icon or not
 *******************************************************************/
 
 bool isAvailable(int row, int col, char grid[3][3])
 {
     if (row >= 0 && row < 3 && col >= 0 && col < 3)
     {
-        if (grid[row][col]==' ')
+        if (grid[row][col] == ' ')
         {
             return true;
         }
-        else 
+        else
         {
             return false;
         }
     }
-    else 
+    else
     {
         return false;
     }
@@ -73,10 +73,10 @@ bool isAvailable(int row, int col, char grid[3][3])
 /*******************************************************************
 void didWin(int row, int col, char grid[3][3])
 
-Inputs: 
+Inputs:
 
-row - Coordinate for the row where the player wants to play 
-col - Coordinate for the column where the player wants to play 
+row - Coordinate for the row where the player wants to play
+col - Coordinate for the column where the player wants to play
 grid - Matrix that represents the playing field
 
 Output:
@@ -90,16 +90,16 @@ This function checks if one of the players has won the game
 bool didWin(int row, int col, char grid[3][3])
 {
     int counter;
-    char aux; 
+    char aux;
 
     /*Checks each row*/
     counter = 0;
-    
-    for(int i=0; i<matrixSize; i++)
+
+    for (int i = 0; i < matrixSize; i++)
     {
         aux = grid[i][0];
-        for(int j=1; j<matrixSize; j++)
-        {   
+        for (int j = 1; j < matrixSize; j++)
+        {
             if ((aux == grid[i][j]) && (grid[i][j] == 'X' || grid[i][j] == 'O'))
             {
                 counter++;
@@ -112,16 +112,16 @@ bool didWin(int row, int col, char grid[3][3])
         else
         {
             counter = 0;
-        }    
+        }
     }
 
     /*Checks each column*/
     counter = 0;
-    
-    for(int i=0; i<matrixSize; i++)
+
+    for (int i = 0; i < matrixSize; i++)
     {
         aux = grid[0][i];
-        for(int j=1; j<matrixSize; j++)
+        for (int j = 1; j < matrixSize; j++)
         {
             if ((aux == grid[j][i]) && (grid[j][i] == 'X' || grid[j][i] == 'O'))
             {
@@ -135,18 +135,18 @@ bool didWin(int row, int col, char grid[3][3])
         else
         {
             counter = 0;
-        }   
+        }
     }
 
     /*Checks Top-left to Bottom-right*/
     counter = 0;
-    for (int i=0; i<(matrixSize-1); i++)
+    for (int i = 0; i < (matrixSize - 1); i++)
     {
         aux = grid[i][i];
-        if ((aux == grid[i+1][i+1]) && (grid[i+1][i+1] == 'X' || grid[i+1][i+1] == 'O'))
+        if ((aux == grid[i + 1][i + 1]) && (grid[i + 1][i + 1] == 'X' || grid[i + 1][i + 1] == 'O'))
         {
             counter++;
-        } 
+        }
     }
     if (counter == 2)
     {
@@ -155,13 +155,14 @@ bool didWin(int row, int col, char grid[3][3])
 
     /*Checks Bottom--left to Top-right*/
     counter = 0;
-    for (int i=(matrixSize-1); i>0; i--)
+    aux = grid[0][2];
+    if ((aux == grid[1][1]) && (grid[1][1] == 'X' || grid[1][1] == 'O'))
     {
-        aux = grid[i][i];
-        if ((aux == grid[i-1][i-1]) && (grid[i-1][i-1] == 'X' || grid[i-1][i-1] == 'O'))
-        {
-            counter++;
-        } 
+        counter++;
+    }
+    if ((aux == grid[2][0]) && (grid[2][0] == 'X' || grid[2][0] == 'O'))
+    {
+        counter++;
     }
     if (counter == 2)
     {
@@ -174,34 +175,34 @@ bool didWin(int row, int col, char grid[3][3])
 /*******************************************************************
 void printMatrix(int row, int col, char grid[3][3])
 
-Inputs: 
+Inputs:
 
-row - Coordinate for the row where the player wants to play 
-col - Coordinate for the column where the player wants to play 
+row - Coordinate for the row where the player wants to play
+col - Coordinate for the column where the player wants to play
 grid - Matrix that represents the playing field
 
 Output:
 
 Description:
-This function prints the playing field 
+This function prints the playing field
 *******************************************************************/
 
 void printMatrix(int row, int col, char grid[3][3])
 {
-    for (int c=0;c<matrixSize;c++)
+    for (int c = 0; c < matrixSize; c++)
     {
-        for (int d=0;d<matrixSize;d++)
+        for (int d = 0; d < matrixSize; d++)
         {
-            printf("%c",grid[c][d]);
-            if (d<(matrixSize-1))
+            printf("%c", grid[c][d]);
+            if (d < (matrixSize - 1))
             {
                 printf("|");
             }
         }
         printf("\n");
-        if (c<(matrixSize-1))
+        if (c < (matrixSize - 1))
         {
-            printf("- - - \n"); 
+            printf("- - - \n");
         }
     }
     return;
@@ -210,16 +211,16 @@ void printMatrix(int row, int col, char grid[3][3])
 /*******************************************************************
 bool fillMatrix(int row, int col, char grid[3][3], char play)
 
-Inputs: 
+Inputs:
 
-row - Coordinate for the row where the player wants to play 
-col - Coordinate for the column where the player wants to play 
+row - Coordinate for the row where the player wants to play
+col - Coordinate for the column where the player wants to play
 grid - Matrix that represents the playing field
 play - Type of char being placed in the Matrix (either 'X' or 'O')
 
 Output:
-TRUE if icon was placed successfully 
-FALSE if icon wasn't placed successfully 
+TRUE if icon was placed successfully
+FALSE if icon wasn't placed successfully
 
 Description:
 This function places the player's icon on the desired coordinates
@@ -244,13 +245,13 @@ bool readSymbol(char *player)
     printf("Please choose which symbol you want (X or O):");
     scanf("%c", &player[0]);
 
-    if(player[0] == 'X' || player[0] == 'x')
+    if (player[0] == 'X' || player[0] == 'x')
     {
         player[0] = 'X';
         player[1] = 'O';
         return true;
     }
-    else if(player[0] == 'O' || player[0] == 'o')
+    else if (player[0] == 'O' || player[0] == 'o')
     {
         player[0] = 'O';
         player[1] = 'X';
@@ -261,27 +262,27 @@ bool readSymbol(char *player)
         printf("The symbol you chose is not available.\n");
         readSymbol(player);
     }
-    return false;  
+    return false;
 }
 
 bool readCoordinates(int *row, int *col)
 {
     printf("Please choose where you want to play (x,y):");
     scanf("%d%*[,]%d", row, col);
-    if (*row <= 0 || *row >3)
+    if (*row <= 0 || *row > 3)
     {
-        printf ("The row you chose is out of bounds.\n");
+        printf("The row you chose is out of bounds.\n");
         readCoordinates(row, col);
     }
-    else if (*col <= 0 || *col >3)
+    else if (*col <= 0 || *col > 3)
     {
-        printf ("The column you chose is out of bounds.\n");
+        printf("The column you chose is out of bounds.\n");
         readCoordinates(row, col);
     }
     else
     {
-        *row -=1;
-        *col -=1;
+        *row -= 1;
+        *col -= 1;
         return true;
     }
     return false;
