@@ -100,7 +100,7 @@ bool didWin(int row, int col, char grid[3][3])
         aux = grid[i][0];
         for(int j=1; j<matrixSize; j++)
         {   
-            if (strcmp(&aux, &grid[i][j]) && (grid[i][j] == 'X' || grid[i][j] == 'O'))
+            if ((aux == grid[i][j]) && (grid[i][j] == 'X' || grid[i][j] == 'O'))
             {
                 counter++;
             }
@@ -123,7 +123,7 @@ bool didWin(int row, int col, char grid[3][3])
         aux = grid[0][i];
         for(int j=1; j<matrixSize; j++)
         {
-            if (strcmp(&aux, &grid[j][i]) && (grid[j][i] == 'X' || grid[j][i] == 'O'))
+            if ((aux == grid[j][i]) && (grid[j][i] == 'X' || grid[j][i] == 'O'))
             {
                 counter++;
             }
@@ -143,12 +143,12 @@ bool didWin(int row, int col, char grid[3][3])
     for (int i=0; i<(matrixSize-1); i++)
     {
         aux = grid[i][i];
-        if (strcmp(&aux, &grid[i+1][i+1]) && (grid[i+1][i+1] == 'X' || grid[i+1][i+1] == 'O'))
+        if ((aux == grid[i+1][i+1]) && (grid[i+1][i+1] == 'X' || grid[i+1][i+1] == 'O'))
         {
             counter++;
         } 
     }
-    if (counter == 3)
+    if (counter == 2)
     {
         return true;
     }
@@ -158,12 +158,12 @@ bool didWin(int row, int col, char grid[3][3])
     for (int i=(matrixSize-1); i>0; i--)
     {
         aux = grid[i][i];
-        if (strcmp(&aux, &grid[i-1][i-1]) && (grid[i-1][i-1] == 'X' || grid[i-1][i-1] == 'O'))
+        if ((aux == grid[i-1][i-1]) && (grid[i-1][i-1] == 'X' || grid[i-1][i-1] == 'O'))
         {
             counter++;
         } 
     }
-    if (counter == 3)
+    if (counter == 2)
     {
         return true;
     }
